@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "description": "typicode",
+      "topic": "Учеба"
+    },
+    {
+      "id": 2,
+      "title": "Второй пост",
+      "description": "Мой второй пост",
+      "topic": "Учеба"
+    },
+    {
+      "title": "Еще один пост",
+      "description": "Описание нового поста",
+      "topic": "Учеба",
+      "id": 3
+    },
+    {
+      "title": "Пост",
+      "description": "Описание поста",
+      "topic": "Учеба",
+      "id": 4
+    },
+    {
+      "title": "Супер пост",
+      "description": "ПРосто супер пост",
+      "topic": "Учеба",
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -1,0 +1,15 @@
+.post-update {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: bisque;
+}
+
+.post-update div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

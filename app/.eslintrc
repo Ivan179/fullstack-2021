@@ -1,27 +1,25 @@
 {
-  "env": { // где будет исполняться наш код
-      "browser": true,
-      "es2021": true 
+  "env": {
+    // где будет исполняться наш код
+    "browser": true,
+    "es2021": true
   },
-  "extends": [ 
-    //   "eslint:recommended",
-    //   "plugin:react/recommended",
-      "prettier"
-  ],
-//   "parser": "babel-eslint",
-//   "parserOptions": {
-//       "ecmaFeatures": {
-//           "jsx": true
-//       },
-//       "ecmaVersion": 11, // версия стандарта JavaScript. Последний 12 (2021).
-//       "sourceType": "module" // Позволяет использовать import/export
-//   },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11, // версия стандарта JavaScript. Последний 12 (2021).
+    "sourceType": "module" // Позволяет использовать import/export
+  },
   "plugins": [
-    //   "react", 
-      "prettier"
+    //   "react",
+    "prettier"
   ],
-//   "rules": {
-//       "prettier/prettier": "error", 
-//       "react/prop-types": 0 
-//   }
+  "rules": {
+    "prettier/prettier": "error",
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": "off"
+  }
 }

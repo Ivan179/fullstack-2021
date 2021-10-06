@@ -1,3 +1,3 @@
 export default function MyPosts() {
-  return <div>Мои посты</div>
+  return <div>Мои посты</div>;
 }

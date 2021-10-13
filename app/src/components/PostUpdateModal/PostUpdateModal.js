@@ -1,8 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setModalData, closeModal } from '../../actions/modal';
+import { setPost } from '../../actions/posts';
 import { PostForm } from '../PostForm';
 
 export function PostUpdateModal(props) {
-  const { postId, setPost, post, setModalData } = props;
+  const { postId, post } = props;
+  const dispatch = useDispatch();
 
   const handleUpdate = (newPost) => {
     fetch(`http://localhost:3001/posts/${postId}`, {
@@ -14,8 +18,8 @@ export function PostUpdateModal(props) {
     })
       .then((response) => response.json())
       .then((updatedPost) => {
-        setModalData(null);
-        setPost(updatedPost);
+        dispatch(closeModal());
+        dispatch(setPost(updatedPost));
       });
   };
 
@@ -24,15 +28,17 @@ export function PostUpdateModal(props) {
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        setModalData(
-          <PostForm
-            buttonTitle='Сохранить'
-            className='post-update'
-            onButtonClick={handleUpdate}
-            defaultTitle={post.title}
-            defaultDescription={post.description}
-            defaultTopic={post.topic}
-          />
+        dispatch(
+          setModalData(
+            <PostForm
+              buttonTitle='Сохранить'
+              className='post-update'
+              onButtonClick={handleUpdate}
+              defaultTitle={post.title}
+              defaultDescription={post.description}
+              defaultTopic={post.topic}
+            />
+          )
         );
       }}
     >

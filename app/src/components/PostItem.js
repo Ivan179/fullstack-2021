@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { PostUpdateModal } from './PostUpdateModal';
 
 export default function PostItem(props) {
-  const { id, title, description, topic, updatePost, setModalData } = props;
+  const { id } = props;
+  const post = useSelector((state) => state.posts.posts[id]);
+  const { title, description, topic } = post || {};
 
   return (
     <div>
@@ -12,12 +15,7 @@ export default function PostItem(props) {
           <p>{description}</p>
           <b>{topic}</b>
           <br />
-          <PostUpdateModal
-            setModalData={setModalData}
-            postId={id}
-            post={{ title, description, topic }}
-            setPost={updatePost}
-          />
+          <PostUpdateModal postId={id} post={{ title, description, topic }} />
         </div>
       </Link>
     </div>

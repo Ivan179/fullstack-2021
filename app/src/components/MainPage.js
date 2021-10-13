@@ -1,43 +1,29 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts } from '../actions/posts';
 import PostItem from './PostItem';
 
-export default function MainPage(props) {
-  const { setModalData } = props;
-  const [postList, setPostNodeList] = React.useState([]);
+export default function MainPage() {
+  const dispatch = useDispatch();
+  const postList = useSelector((state) => state.posts.postList);
+  const isError = useSelector((state) => state.posts.isError);
 
   React.useEffect(() => {
-    const postNodeList = [];
-
-    fetch('http://localhost:3001/posts')
-      .then((response) => response.json())
-      .then((data) => {
-        data.forEach((post) => {
-          postNodeList.push(post);
-        });
-        setPostNodeList(postNodeList);
-      })
-      .catch((error) => console.log(error));
+    dispatch(fetchPosts());
   }, []);
 
-  function updatePost(newPost) {
-    const currentPost = postList.find((postItem) => postItem.id === newPost.id);
-    const newPostArray = [...postList];
-    newPostArray[postList.indexOf(currentPost)] = newPost;
-    setPostNodeList(newPostArray);
+  if (isError) {
+    return (
+      <div className='wrapper'>
+        <h1>Произошла ошибка!</h1>
+      </div>
+    );
   }
 
   return (
     <div className='wrapper'>
-      {postList.map((post) => (
-        <PostItem
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          description={post.description}
-          topic={post.topic}
-          updatePost={updatePost}
-          setModalData={setModalData}
-        />
+      {postList.map((postId) => (
+        <PostItem key={postId} id={postId} />
       ))}
     </div>
   );

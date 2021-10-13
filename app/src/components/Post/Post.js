@@ -1,32 +1,32 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { fetchPost } from '../../actions/posts';
 import { Spinner } from '../Spinner';
 import { PostUpdateModal } from '../PostUpdateModal';
 import './post.css';
 
-function Post(props) {
-  const { setModalData } = props;
+function Post() {
+  const dispatch = useDispatch();
   const params = useParams();
-  const [post, setPost] = React.useState(null);
-  const [isError, setIsError] = React.useState(false);
 
   const { postId } = params;
+  const post = useSelector((state) => state.posts.posts[postId]);
+  const isError = useSelector((state) => state.posts.isError);
 
   React.useEffect(() => {
-    fetch(`http://localhost:3001/posts/${postId}`)
-      .then((response) => response.json())
-      .then((post) => {
-        document.title = post.title;
-
-        setPost(post);
-      })
-      .catch(() => {
-        setIsError(true);
-      });
+    if (post) {
+      return;
+    }
+    dispatch(fetchPost(postId));
   }, []);
 
   if (isError) {
-    return <div>Произошла ошибка при загрузке поста</div>;
+    return (
+      <div>
+        <h1>Произошла ошибка при загрузке поста</h1>
+      </div>
+    );
   }
 
   if (!post) {
@@ -40,12 +40,7 @@ function Post(props) {
         <p>{post.description}</p>
         <b>{post.topic}</b>
         <br />
-        <PostUpdateModal
-          post={post}
-          setPost={setPost}
-          postId={postId}
-          setModalData={setModalData}
-        />
+        <PostUpdateModal post={post} postId={postId} />
       </div>
     </div>
   );

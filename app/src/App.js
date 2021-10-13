@@ -10,8 +10,6 @@ import MyPosts from './components/MyPosts';
 import { Modal } from './components/Modal';
 
 export function App() {
-  const [modalData, setModalData] = React.useState(null);
-
   return (
     <>
       <Router>
@@ -24,17 +22,17 @@ export function App() {
             <PostCreate />
           </Route>
           <Route path='/post/:postId'>
-            <Post setModalData={setModalData} />
+            <Post />
           </Route>
           <Route path='/my_posts'>
             <MyPosts />
           </Route>
           <Route path='/'>
-            <MainPage setModalData={setModalData} />
+            <MainPage />
           </Route>
         </Switch>
       </Router>
-      <Modal onClose={() => setModalData(null)}>{modalData}</Modal>
+      <Modal />
       <Footer />
     </>
   );

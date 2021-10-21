@@ -1,0 +1,15 @@
+{% extends 'posts/header.html' %} {% block content %}
+<div>
+  {% for post in posts %} {% if post.id == 3 %}
+  <div>
+    <a href="{{post.id}}">{{post.title}}</a>
+    {{post.description}} {{post.topic}} {{post.user}}
+  </div>
+  {% else %}
+  <div style="background-color: yellow">
+    <a href="{% url "post_details" post.id  %}">{{post.title}}</a> {{post.description}} {{post.topic}}
+    {{post.user}}
+  </div>
+  {% endif %} {% endfor %}
+</div>
+{% endblock content%}

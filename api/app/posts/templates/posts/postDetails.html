@@ -1,3 +1,4 @@
 {% extends 'posts/header.html' %} {% block content %}
 <div>{{post.title}} {{post.description}} {{post.user}}</div>
+<a href="{% url "post_update" post.id %}"><button>Редактировать</button></a>
 {% endblock content%}

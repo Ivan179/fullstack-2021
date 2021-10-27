@@ -17,10 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from .view import Logout, Login, Registration
 import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('post/', include('posts.urls')),
+    path('post/', include('posts.urls'), name="post"),
+    path('logout/', Logout.as_view(), name='logout'),
+    path('login/', Login.as_view(), name='login'),
+    path('registration/', Registration.as_view(), name="registration"),
     path('__debug__/', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

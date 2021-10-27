@@ -14,9 +14,16 @@
     <header>
       <div class="menu">
         <a href="index.html">Главная</a>
+        {% if user.is_authenticated %}
         <a href="my_posts.html">Мои записи</a>
-        <a href="about.html">Создать пост</a>
+        <a href="{% url 'post_create' %}">Создать пост</a>
+        {% endif %}
         <a href="info.html">Полезная информация</a>
+        {% if user.is_authenticated %}
+        <a href="/logout">Выйти</a>
+        {% else %}
+        <a href="/login">Войти</a>
+        {% endif %}
       </div>
     </header>
     {% block content %}{% endblock content%}

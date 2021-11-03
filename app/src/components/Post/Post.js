@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchPost } from '../../actions/posts';
 import { Spinner } from '../Spinner';
 import { PostUpdateModal } from '../PostUpdateModal';
+import { Comment } from '../Comment';
 import './post.css';
 
 function Post() {
@@ -34,13 +35,20 @@ function Post() {
   }
 
   return (
-    <div className='wrapper'>
-      <div className='item'>
-        <h4>{post.title}</h4>
-        <p>{post.description}</p>
-        <b>{post.topic}</b>
-        <br />
-        <PostUpdateModal post={post} postId={postId} />
+    <div>
+      <div className='wrapper'>
+        <div className='item'>
+          <h4>{post.title}</h4>
+          <p>{post.description}</p>
+          <b>{post.topic}</b>
+          <br />
+          <PostUpdateModal post={post} postId={postId} />
+        </div>
+      </div>
+      <div className='comment_wrapper'>
+        {post.comment_set.map((comment) => (
+          <Comment key={comment.id} {...comment} />
+        ))}
       </div>
     </div>
   );

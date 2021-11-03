@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import viewsets, mixins
+from .models import Comment
+from .serializers import CommentSerializer
 
-# Create your views here.
+class CommentListView(mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+  queryset = Comment.objects.all()
+  serializer_class = CommentSerializer
+
+  def perform_create(self, serializer):
+      serializer.validated_data['user'] = self.request.user
+      return super().perform_create(serializer)

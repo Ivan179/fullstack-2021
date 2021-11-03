@@ -2,7 +2,6 @@ body {
   margin: 0;
 }
 .wrapper {
-  height: 400px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -100,4 +99,26 @@ a:-webkit-any-link {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.post-list_button {
+  margin-top: 10px;
+  display: flex;
+  margin: auto;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.comment_wrapper > div {
+  width: 200px;
+  margin-top: 5px;
+  background-color: bisque;
+  padding: 10px;
 }

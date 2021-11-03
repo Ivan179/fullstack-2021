@@ -1,9 +1,11 @@
-from django.http.response import HttpResponseNotFound, HttpResponseRedirect
+from django.http.response import HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django import forms
 from .models import Post
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from .serializers import PostSerializer
+from rest_framework import viewsets
 
 def index(request):
   return render(request, 'posts/react.html')
@@ -68,3 +70,19 @@ class PostUpdate(UpdateView):
     
   def get_success_url(self):
     return reverse('post_details', args=(self.object.id,))
+
+class PostListView(viewsets.ModelViewSet):
+  serializer_class = PostSerializer
+  queryset = Post.objects.all()
+
+  def perform_create(self, serializer):
+      serializer.validated_data['user'] = self.request.user
+      return super().perform_create(serializer)
+  
+
+class MyPostListView(viewsets.ReadOnlyModelViewSet):
+  serializer_class = PostSerializer
+  queryset = Post.objects.all()
+
+  def get_queryset(self):
+      return Post.objects.filter(user=self.request.user)

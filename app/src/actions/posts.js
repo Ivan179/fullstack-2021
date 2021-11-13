@@ -5,6 +5,7 @@ import {
   SET_ERROR,
   SET_POST_LIST_MORE,
 } from '../reducers/posts';
+import { ApiClientService } from '../services/ApiClientService';
 
 const userSchema = new schema.Entity('user');
 const commentsSchema = new schema.Entity('comments', { user: userSchema });
@@ -51,8 +52,7 @@ function setIsError() {
 export function fetchPosts() {
   return async (dispatch) => {
     try {
-      const response = await fetch('http://localhost:8000/api/posts');
-      const data = await response.json();
+      const data = await ApiClientService('posts/');
       dispatch(setPosts(data.results, data.count));
     } catch {
       dispatch(setIsError());
@@ -65,10 +65,7 @@ export function fetchPostsMore() {
     try {
       const state = getState();
       const page = state.posts.page;
-      const response = await fetch(
-        `http://localhost:8000/api/posts?page=${page + 1}`
-      );
-      const data = await response.json();
+      const data = await ApiClientService(`posts?page=${page + 1}`);
       dispatch(setPostsMore(data.results));
     } catch {
       dispatch(setIsError());
@@ -79,8 +76,7 @@ export function fetchPostsMore() {
 export function fetchPost(postId) {
   return async (dispatch) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/posts/${postId}`);
-      const post = await response.json();
+      const post = await ApiClientService(`posts/${postId}`);
       document.title = post.title;
 
       dispatch(setPost(post));

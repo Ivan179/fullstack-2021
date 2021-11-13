@@ -22,17 +22,25 @@ from .view import Logout, Login, Registration
 from posts.views import PostListView, MyPostListView
 from comments.views import CommentListView
 import debug_toolbar
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from .view import UserViewSet
 
 router = routers.DefaultRouter()
 router.register('posts', PostListView)
 router.register('comments', CommentListView)
 router.register('myposts', MyPostListView)
+router.register('users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/', include('posts.urls'), name="post"),
     path('logout/', Logout.as_view(), name='logout'),
     path('login/', Login.as_view(), name='login'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
     path('registration/', Registration.as_view(), name="registration"),
     path('__debug__/', include(debug_toolbar.urls)),

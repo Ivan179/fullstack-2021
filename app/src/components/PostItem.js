@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { PostUpdateModal } from './PostUpdateModal';
 
 export default function PostItem(props) {
-  const { id } = props;
+  const { id, isLogin } = props;
   const post = useSelector((state) => state.posts.posts[id]);
   const { title, description, topic } = post || {};
 
@@ -15,7 +15,9 @@ export default function PostItem(props) {
           <p>{description}</p>
           <b>{topic}</b>
           <br />
-          <PostUpdateModal postId={id} post={{ title, description, topic }} />
+          {isLogin && (
+            <PostUpdateModal postId={id} post={{ title, description, topic }} />
+          )}
         </div>
       </Link>
     </div>

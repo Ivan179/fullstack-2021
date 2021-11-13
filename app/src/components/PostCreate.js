@@ -1,20 +1,28 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PostForm } from './PostForm';
+import { ApiClientService } from '../services/ApiClientService';
 
 export default function PostCreate() {
   const history = useHistory();
 
-  const handleClick = (post) => {
-    fetch('http://localhost:3001/posts', {
+  const handleClick = async (post) => {
+    // const formData = new FormData();
+    // for (let postKey in post) {
+    //   formData[postKey] = post[postKey];
+    // }
+
+    // console.log(formData);
+
+    const data = await ApiClientService('posts/', {
       headers: {
-        'Content-Type': 'Application/json',
+        'Content-Type': 'Application/JSON',
       },
-      body: JSON.stringify(post),
       method: 'POST',
-    })
-      .then((response) => response.json())
-      .then((data) => history.push(`/post/${data.id}`));
+      body: JSON.stringify(post),
+    });
+
+    history.push(`/post/${data.id}`);
   };
 
   return (

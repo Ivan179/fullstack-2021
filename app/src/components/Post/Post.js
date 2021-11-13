@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { fetchPost } from '../../actions/posts';
 import { Spinner } from '../Spinner';
 import { PostUpdateModal } from '../PostUpdateModal';
 import { Comment } from '../Comment';
 import './post.css';
 
-function Post() {
+function Post(props) {
+  const { isLogin } = props;
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -42,14 +43,23 @@ function Post() {
           <p>{post.description}</p>
           <b>{post.topic}</b>
           <br />
-          <PostUpdateModal post={post} postId={postId} />
+          {isLogin && <PostUpdateModal post={post} postId={postId} />}
         </div>
       </div>
-      <div className='comment_wrapper'>
-        {post.comment_set.map((comment) => (
-          <Comment key={comment.id} {...comment} />
-        ))}
-      </div>
+      {isLogin ? (
+        <div className='comment_wrapper'>
+          {post.comment_set.map((comment) => (
+            <Comment key={comment.id} {...comment} />
+          ))}
+        </div>
+      ) : (
+        <div className='comment_wrapper'>
+          <div>
+            <p>Авторизуйтесь, чтобы видеть комментарии к посту</p>
+            <Link to='/login'>Авторизоваться</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

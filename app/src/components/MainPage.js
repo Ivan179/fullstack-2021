@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, fetchPostsMore } from '../actions/posts';
 import PostItem from './PostItem';
 
-export default function MainPage() {
+export default function MainPage(props) {
+  const { isLogin } = props;
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.posts.postList);
   const isError = useSelector((state) => state.posts.isError);
@@ -25,7 +26,7 @@ export default function MainPage() {
     <div>
       <div className='wrapper'>
         {postList.map((postId) => (
-          <PostItem key={postId} id={postId} />
+          <PostItem key={postId} id={postId} isLogin={isLogin} />
         ))}
       </div>
       {postList.length < count && (

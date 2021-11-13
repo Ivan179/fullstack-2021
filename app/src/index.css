@@ -116,9 +116,45 @@ a:-webkit-any-link {
   margin-top: 20px;
 }
 
+.comment_wrapper a {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.5s background-color;
+}
+
 .comment_wrapper > div {
   width: 200px;
   margin-top: 5px;
   background-color: bisque;
   padding: 10px;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: darkgrey;
+}
+
+.login_form div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.login_form button {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.5s background-color;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.login_form__error {
+  color: red;
 }

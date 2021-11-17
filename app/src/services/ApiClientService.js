@@ -7,9 +7,7 @@ export async function ApiClientService(url, options = {}) {
     headers['Authorization'] = `Bearer ${access}`;
   }
 
-  console.log(options);
-
-  let response = await fetch(`${apiBase}${url}`, options);
+  let response = await fetch(`${apiBase}${url}`, { ...options, headers });
 
   if (response.status === 401) {
     const refresh = window.localStorage.getItem('REFRESH');
@@ -28,7 +26,7 @@ export async function ApiClientService(url, options = {}) {
 
     headers['Authorization'] = `Bearer ${refreshData.access}`;
 
-    response = await fetch(`${apiBase}${url}`, options);
+    response = await fetch(`${apiBase}${url}`, { ...options, headers });
   }
 
   const data = await response.json();

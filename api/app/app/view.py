@@ -2,6 +2,8 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.views.generic import CreateView
 from rest_framework import viewsets, mixins
 from django.contrib.auth.models import User
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import UserSerializer
 
 class Logout(LogoutView):
@@ -21,12 +23,6 @@ class Registration(CreateView):
   model = User
   fields = ['username', 'password', 'email']
 
-  # def post(self, request):
-  #     result = super().post(request)
-
-  #     print(result)
-  #     return result
-
   def get_context_data(self) :
       context = super().get_context_data()
 
@@ -45,3 +41,9 @@ class UserViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
       user = User.objects.create_user(**serializer.validated_data)
       user.set_password(serializer.validated_data['password'])
       return user
+
+class CurrentUser(APIView):
+  def get(self, request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+        

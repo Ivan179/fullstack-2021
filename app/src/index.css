@@ -12,14 +12,15 @@ body {
 
 .wrapper .item {
   width: 200px;
-  height: 200px;
+  height: 320px;
   background-color: bisque;
   padding: 10px;
 }
 
 .item img {
-  height: 150px;
-  width: 150px;
+  height: 120px;
+  width: 200px;
+  object-fit: cover;
 }
 
 .item button {
@@ -157,4 +158,14 @@ a:-webkit-any-link {
 
 .login_form__error {
   color: red;
+}
+
+.user_button {
+  display: flex;
+  height: 28px;
+  align-items: center;
+}
+
+.user_button a {
+  margin-left: 10px;
 }

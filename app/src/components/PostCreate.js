@@ -7,19 +7,14 @@ export default function PostCreate() {
   const history = useHistory();
 
   const handleClick = async (post) => {
-    // const formData = new FormData();
-    // for (let postKey in post) {
-    //   formData[postKey] = post[postKey];
-    // }
-
-    // console.log(formData);
+    const formData = new FormData();
+    for (let postKey in post) {
+      formData.append(postKey, post[postKey]);
+    }
 
     const data = await ApiClientService('posts/', {
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
       method: 'POST',
-      body: JSON.stringify(post),
+      body: formData,
     });
 
     history.push(`/post/${data.id}`);

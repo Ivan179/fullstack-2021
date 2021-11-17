@@ -15,16 +15,29 @@ import MyPosts from './components/MyPosts';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import { Modal } from './components/Modal';
+import { ApiClientService } from './services/ApiClientService';
 
 export function App() {
+  const [user, setUser] = React.useState(null);
   const [isLogin, setIsLogin] = React.useState(
     window.localStorage.getItem('ACCESS')
   );
 
+  const fetchUser = async () => {
+    const user = await ApiClientService('user/current');
+    setUser(user);
+  };
+
+  React.useEffect(() => {
+    if (isLogin) {
+      void fetchUser();
+    }
+  }, [isLogin]);
+
   return (
     <>
       <Router>
-        <Header isLogin={isLogin} setIsLogin={setIsLogin} />
+        <Header isLogin={isLogin} setIsLogin={setIsLogin} user={user} />
         <Switch>
           <Route path='/info'>
             <InfoPage />
@@ -33,10 +46,14 @@ export function App() {
             {isLogin ? <PostCreate /> : <Redirect to='/login' />}
           </Route>
           <Route path='/post/:postId'>
-            <Post />
+            <Post isLogin={isLogin} />
           </Route>
           <Route path='/my_posts'>
-            {isLogin ? <MyPosts /> : <Redirect to='/login' />}
+            {isLogin ? (
+              <MyPosts user={user} isLogin={isLogin} />
+            ) : (
+              <Redirect to='/login' />
+            )}
           </Route>
           <Route path='/login'>
             <Login setIsLogin={setIsLogin} />
@@ -48,7 +65,7 @@ export function App() {
             <Redirect to='/' />
           </Route>
           <Route path='/'>
-            <MainPage isLogin={isLogin} />
+            <MainPage isLogin={isLogin} user={user} />
           </Route>
         </Switch>
       </Router>

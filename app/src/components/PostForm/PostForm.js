@@ -12,14 +12,14 @@ export function PostForm(props) {
   const [title, setTitle] = React.useState(defaultTitle);
   const [description, setDescription] = React.useState(defaultDescription);
   const [topic, setTopic] = React.useState(defaultTopic);
-  // const fileRef = React.useRef();
+  const fileRef = React.useRef();
 
   const handleClick = (event) => {
     const post = {
       title,
       description,
       topic,
-      // image: fileRef.current.files[0],
+      image: fileRef.current.files[0],
     };
     event.preventDefault();
     onButtonClick(post);
@@ -61,10 +61,10 @@ export function PostForm(props) {
             }}
           />
         </div>
-        {/* <div>
+        <div>
           <label>Фотография</label>
           <input type='file' ref={fileRef}></input>
-        </div> */}
+        </div>
         <button type='submit' onClick={handleClick}>
           {buttonTitle}
         </button>

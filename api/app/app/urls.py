@@ -26,7 +26,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .view import UserViewSet
+from .view import UserViewSet, CurrentUser
 
 router = routers.DefaultRouter()
 router.register('posts', PostListView)
@@ -41,7 +41,8 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/user/current', CurrentUser.as_view(), name='current_user'),
     path('api/', include(router.urls)),
     path('registration/', Registration.as_view(), name="registration"),
     path('__debug__/', include(debug_toolbar.urls)),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

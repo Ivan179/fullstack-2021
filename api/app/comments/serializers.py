@@ -4,8 +4,7 @@ from app.serializers import UserSerializer
 from .models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
-  user = UserSerializer(read_only=True)
-  post = PostSerializer()
   class Meta:
     model = Comment
     fields = ['id', 'text', 'date_creation', 'user', 'post']
+    read_only_fields = ('date_creation', 'user')

@@ -36,6 +36,7 @@ export function PostUpdateModal(props) {
               defaultTitle={post.title}
               defaultDescription={post.description}
               defaultTopic={post.topic}
+              defaultImage={post.image}
             />
           )
         );

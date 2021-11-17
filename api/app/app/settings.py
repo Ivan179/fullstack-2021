@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import configparser
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+config = configparser.ConfigParser()
+config.read(BASE_DIR / 'django.conf')
 
 
 # Quick-start development settings - unsuitable for production
@@ -82,12 +85,18 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': config['db']['NAME'],
+       'USER': config['db']['USER'],
+       'PASSWORD': config['db']['PASSWORD'],
+       'HOST': 'localhost',   
+       'PORT': '3306',
+   }
 }
+
 
 
 # Password validation
@@ -130,6 +139,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

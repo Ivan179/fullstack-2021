@@ -5,6 +5,7 @@ import { fetchPost } from '../../actions/posts';
 import { Spinner } from '../Spinner';
 import { PostUpdateModal } from '../PostUpdateModal';
 import { Comment } from '../Comment';
+import { CommentForm } from '../CommentForm';
 import './post.css';
 
 function Post(props) {
@@ -40,6 +41,7 @@ function Post(props) {
       <div className='wrapper'>
         <div className='item'>
           <h4>{post.title}</h4>
+          <img src={post.image} />
           <p>{post.description}</p>
           <b>{post.topic}</b>
           <br />
@@ -51,6 +53,7 @@ function Post(props) {
           {post.comment_set.map((comment) => (
             <Comment key={comment.id} {...comment} />
           ))}
+          <CommentForm postId={postId} />
         </div>
       ) : (
         <div className='comment_wrapper'>

@@ -157,3 +157,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
+
+ADMIN_EMAIL_PROTOCOL = 'smtp.mail.ru'
+ADMIN_EMAIL = 'ivan20212311@mail.ru'
+ADMIN_PASSWORD = 'dC3qJy37APX8F7k9Aqyd'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = 'json'

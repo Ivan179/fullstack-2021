@@ -1,10 +1,13 @@
 from django.contrib.auth.views import LogoutView, LoginView
+from django.db.models import signals
+
 from django.views.generic import CreateView
 from rest_framework import viewsets, mixins
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer
+from .send_mail import send_mail
 
 class Logout(LogoutView):
   next_page = '/post'
@@ -47,3 +50,8 @@ class CurrentUser(APIView):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
         
+def post_user_save(signal, **kwargs):
+  print(kwargs['instance'])
+  send_mail(kwargs['instance'].email, kwargs['instance'].username)
+
+signals.post_save.connect(post_user_save, sender=User)
